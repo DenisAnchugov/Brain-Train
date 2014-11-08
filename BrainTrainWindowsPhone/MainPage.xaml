@@ -1,0 +1,129 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="BrainTrainWindowsPhone.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+   
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Popup x:Name="Rules" Width="450" HorizontalAlignment="Center" Grid.Row="0" Margin="0, 15, 0, 0">
+            <StackPanel Background="#FF292828">
+                <TextBlock Text="Press start to deploy first question. Questions generated automaticly. You have right to make 3 mistakes. You have 5 seconds to answer each question. Question will become harder as you level up. Lets see how far can you get." TextAlignment="Center" Width="450" TextWrapping="Wrap"/>
+                <Button x:Name="rulesButton" BorderThickness="1" Content="Continue"  FontSize="24" Click="rulesButton_Click"/>
+            </StackPanel>
+        </Popup>       
+        <StackPanel x:Name="TitlePanel" Grid.Row="0">
+            <Grid x:Name="TopPanel" Grid.Row="0">              
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>                  
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="start" BorderThickness="0" Content="Start" Grid.Row="0" Click="start_Click" FontSize="48">
+                    <Button.RenderTransform>
+                        <CompositeTransform/>
+                    </Button.RenderTransform>
+                </Button>
+                <Grid x:Name="stats" Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="statsTopRow" Grid.Row="0" Background="Black">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" Text="Lives:" HorizontalAlignment="Center" Grid.Column="0" FontSize="24"/>
+                        <TextBlock x:Name="playerHP" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" FontSize="24" Foreground="#FF048104"/>
+                        <TextBlock x:Name="timerLabel" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3" FontSize="24" Foreground="#FFC30A0A"/>
+                        <TextBlock VerticalAlignment="Center" Text="Timer:" HorizontalAlignment="Center" Grid.Column="2" FontSize="24"/>
+
+                    </Grid>
+                    <Grid x:Name="statsBottomRow" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" Text="Score:" HorizontalAlignment="Center" Grid.Column="0" FontSize="24"/>
+                        <TextBlock x:Name="score" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" FontSize="24"/>
+                        <TextBlock VerticalAlignment="Center" Text="Level:" HorizontalAlignment="Center" Grid.Column="2" FontSize="24"/>
+                        <TextBlock x:Name="LevelLabel"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3" FontSize="24"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </StackPanel>
+        <Grid x:Name="Output" Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="inputs" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="inputs_output" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="24" Foreground="#FFA49E9E"/>
+                <Button x:Name="backspace" BorderThickness="0" Content="←" Grid.Column="1" Height="99" FontSize="48" Width="120" HorizontalAlignment="Right" Click="backspace_Click" ></Button>
+            </Grid>
+            <TextBlock x:Name="questionLabel" Foreground="#FFDC0505" FontSize="48" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"  />
+        </Grid>
+        <StackPanel x:Name="AllContents" Grid.Row="2" VerticalAlignment="Bottom" >
+            <Grid x:Name="ContentPanel" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="KeyBoard" Grid.Row="0" Margin="0,0,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="number1_btn" BorderThickness="0" Content="1" Width="Auto"  Height="Auto"  Grid.Column="0" Grid.Row="0" Click="number_btn_Click" FontSize="48" />
+                    <Button x:Name="number2_btn" BorderThickness="0" Content="2" Width="Auto" Height="Auto"  Grid.Column="1"  Grid.Row="0" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number3_btn" BorderThickness="0" Content="3" Width="Auto" Height="Auto" Grid.Column="2"  Grid.Row="0" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number4_btn" BorderThickness="0" Content="4" Width="Auto" Height="Auto"  Grid.Column="0" Grid.Row="1" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number5_btn" BorderThickness="0" Content="5" Width="Auto" Height="Auto"  Grid.Column="1"  Grid.Row="1" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number6_btn" BorderThickness="0" Content="6" Width="Auto" Height="Auto" Grid.Column="2"  Grid.Row="1" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number7_btn" BorderThickness="0" Content="7" Width="Auto" Height="Auto"  Grid.Column="0" Grid.Row="2" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number8_btn" BorderThickness="0" Content="8" Width="Auto" Height="Auto"  Grid.Column="1"  Grid.Row="2" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="number9_btn" BorderThickness="0" Content="9" Width="Auto" Height="Auto" Grid.Column="2"  Grid.Row="2" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="minus_sign" BorderThickness="0" Content="-" Width="Auto" Height="Auto" Grid.Column="3"  Grid.Row="1" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="btn0" BorderThickness="0" Content="0" Width="Auto" Height="Auto" Grid.Column="3"  Grid.Row="0" Click="number_btn_Click" FontSize="48"/>
+                    <Button x:Name="enter" BorderThickness="0" Content="↵" Width="Auto" Height="Auto" Grid.Column="3"  Grid.Row="2" Click="enter_Click" FontSize="48"/>
+
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+
+</phone:PhoneApplicationPage>
